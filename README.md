@@ -40,14 +40,7 @@ Add all the source files to their respective directories
 
 🔐 API Configuration Setup
 For Reviewers/Users:
-The application.properties file is excluded from Git for security reasons. To run this application, please create your own configuration file:
-
-Step 1: Create Configuration File
-Create src/main/resources/application.properties with the following content:
-
-server.port=8080
-spring.cache.cache-names=weather,forecast,locations
-logging.level.com.weatherapi=INFO
+In application.properties file api keys is excluded from Git for security reasons. To run this application, please create your own api keys:
 
 # Real API Configuration
 weather.api.openweather.key=your_api_key
@@ -55,10 +48,6 @@ weather.api.openweather.url=https://api.openweathermap.org/data/2.5
 
 weather.api.weatherapi.key=your_api_key
 weather.api.weatherapi.url=http://api.weatherapi.com/v1
-
-# Cache TTL in seconds (10 minutes)
-cache.ttl.weather=600
-cache.ttl.forecast=1800
 
 OpenWeatherMap (Free: 1000 calls/day)
 
@@ -71,16 +60,6 @@ WeatherAPI (Free: 1M calls/month)
 Sign up: https://www.weatherapi.com/
 
 Get API key from your account
-
-Clone the repository
-
-Create application.properties as shown above
-
-Add your API keys (optional)
-
-Run mvn spring-boot:run
-
-Test endpoints with real weather data
 
 GET
 🔧 Troubleshooting
@@ -216,58 +195,6 @@ Requests 1-10: HTTP 200 ✅
 
 Request 11+: HTTP 429 ❌ (Rate limit exceeded)
 
-Method 2: Using Postman Collection Runner
-
-Add your request to the "Weather API Tests" collection
-
-Click "Runner" button
-
-Set:
-
-Iterations: 12
-
-Delay: 0 ms
-
-Click "Run Weather API Tests"
-
-Observe HTTP 429 responses after 10th request
-
-Method 3: Using Postman Scripts
-Add this to your request's Tests tab:
-
-javascript
-// Rate limiting test script
-pm.test("Status code is 200", function () {
-pm.response.to.have.status(200);
-});
-
-// Log request count
-if (!pm.collectionVariables.get("requestCount")) {
-pm.collectionVariables.set("requestCount", 1);
-} else {
-pm.collectionVariables.set("requestCount", pm.collectionVariables.get("requestCount") + 1);
-}
-
-console.log("Request #" + pm.collectionVariables.get("requestCount"));
-5. Error Handling Tests
-   Test 1: Invalid Parameters
-
-URL: http://localhost:8080/weather/current?location=
-
-Expected: HTTP 400 Bad Request
-
-Test 2: Invalid Days Parameter
-
-URL: http://localhost:8080/weather/forecast?location=London&days=15
-
-Expected: HTTP 400 Bad Request
-
-Test 3: Rate Limit Exceeded
-
-URL: http://localhost:8080/weather/current?location=London (11th request)
-
-Expected: HTTP 429 Too Many Requests
-
 📊 Features Demonstration
 1. Caching in Action
    text
@@ -307,7 +234,7 @@ server.port=8080
 spring.cache.cache-names=weather,forecast,locations
 logging.level.com.weatherapi=INFO
 
-# Optional: For real API integration
+For real API integration:
 weather.api.openweather.key=your_api_key
 weather.api.weatherapi.key=your_api_key
 Cache Configuration
