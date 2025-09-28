@@ -38,6 +38,55 @@ mkdir -p src/main/java/com/weatherapi/config
 mkdir -p src/main/resources
 Add all the source files to their respective directories
 
+🔐 API Configuration Setup
+For Reviewers/Users:
+The application.properties file is excluded from Git for security reasons. To run this application, please create your own configuration file:
+
+Step 1: Create Configuration File
+Create src/main/resources/application.properties with the following content:
+
+server.port=8080
+spring.cache.cache-names=weather,forecast,locations
+logging.level.com.weatherapi=INFO
+
+# Real API Configuration
+weather.api.openweather.key=your_api_key
+weather.api.openweather.url=https://api.openweathermap.org/data/2.5
+
+weather.api.weatherapi.key=your_api_key
+weather.api.weatherapi.url=http://api.weatherapi.com/v1
+
+# Cache TTL in seconds (10 minutes)
+cache.ttl.weather=600
+cache.ttl.forecast=1800
+
+OpenWeatherMap (Free: 1000 calls/day)
+
+Sign up: https://openweathermap.org/api
+
+Get API key from your account dashboard
+
+WeatherAPI (Free: 1M calls/month)
+
+Sign up: https://www.weatherapi.com/
+
+Get API key from your account
+
+Clone the repository
+
+Create application.properties as shown above
+
+Add your API keys (optional)
+
+Run mvn spring-boot:run
+
+Test endpoints with real weather data
+
+GET
+🔧 Troubleshooting
+Application won't start:
+Ensure application.properties exists in src/main/resources/
+
 Build the project:
 
 bash
